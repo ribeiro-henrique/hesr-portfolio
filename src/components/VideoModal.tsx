@@ -19,7 +19,6 @@ export default function VideoModal({ videoUrl, setOpenModal }: Props) {
                     width="100%"
                     height="100%"
                     src={videoUrl}
-                    title="Demo video"
                     frameBorder="0"
                     allowFullScreen
                 />
