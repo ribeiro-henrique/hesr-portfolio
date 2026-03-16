@@ -195,8 +195,14 @@ body {
  
 .about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   
+}
+
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
  
 /* Cards */
@@ -334,8 +340,15 @@ body {
  
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: 2rem
+}
+
+@media (min-width: 768px) {
+  .projects-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
 }
  
 .project-card {
@@ -462,9 +475,17 @@ body {
  
 .contact-top-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
-  margin-bottom: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: 3rem
+  
+}
+
+@media (min-width: 768px) {
+  .contact-top-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
 }
 
 .contact-icon-box {
@@ -521,8 +542,24 @@ body {
   border-radius: 12px;
   box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
-.contact-form-grid { display: flex; flex-direction: column; gap: 1.1rem; }
-.contact-form-grid.two-col { flex-direction: row; gap: 1rem; }
+.contact-form-grid { 
+    display: flex;
+    flex-direction: column; 
+    gap: 1.1rem; 
+  }
+
+.contact-form-grid.two-col {  
+  display: flex; 
+  flex-direction: column; 
+  gap: 1.1rem; }
+
+@media (min-width: 768px) {
+  .contact-form-grid.two-col{
+    display: flex; 
+    flex-direction: row; 
+    gap: 1.1rem;
+  }
+}
 .contact-form-grid.two-col .contact-field { flex: 1; }
  
 .contact-label {

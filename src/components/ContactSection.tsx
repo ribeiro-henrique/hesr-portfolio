@@ -1,4 +1,10 @@
+import clsx from "clsx"
+import { useState } from "react"
+import Swal from "sweetalert2"
+
 export default function ContactSection() {
+
+    const [isLoading, setIsLoading] = useState(false)
 
     const CONTACTS = [
         {
@@ -18,6 +24,8 @@ export default function ContactSection() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
+        setIsLoading(true)
+
         const formData = new FormData(e.currentTarget)
 
         const payload = {
@@ -27,25 +35,32 @@ export default function ContactSection() {
             message: formData.get("message"),
         }
 
-        try {
-            const res = await fetch("https://distraiviz.app.n8n.cloud/webhook-test/portfolio-contact", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(payload)
-            })
+        const res = await fetch("https://distraiviz.app.n8n.cloud/webhook/portfolio-contact", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
 
-            if (res.ok) {
-                alert("Mensagem enviada com sucesso!")
-                e.currentTarget.reset()
-            } else {
-                alert("Erro ao enviar mensagem")
-            }
-        } catch (err) {
-            console.error(err)
-            alert("Erro ao conectar com o servidor")
+        if (res.ok) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Sua mensagem foi enviada!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+            setIsLoading(false)
+            e.currentTarget.reset()
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Algo deu errado...",
+            });
         }
+
     }
 
     return (
@@ -86,8 +101,9 @@ export default function ContactSection() {
                 </div>
 
                 {/* Social info */}
-                <div className="d-flex flex-column px-3 py-3 bg-white border border-1 rounded-2">
+                <div className="d-flex flex-column px-3 py-3 bg-white border border-1 rounded-2 mb-5 mb-md-0">
                     <p className="highlight-title" style={{ fontSize: '0.95rem', marginBottom: 12 }}>Conecte-se comigo</p>
+
                     <div className="social-grid">
                         {[
                             { icon: '🐙', label: 'GitHub', href: 'https://github.com/ribeiro-henrique' },
@@ -106,6 +122,7 @@ export default function ContactSection() {
                             </a>
                         ))}
                     </div>
+
                 </div>
 
             </div>
@@ -123,7 +140,7 @@ export default function ContactSection() {
                 </div>
                 <div className="contact-form-grid two-col">
                     <div className="d-flex flex-column gap-1">
-                        <label className="contact-label">Seu número (optional)</label>
+                        <label className="contact-label">Seu número</label>
                         <input name="phone" className="contact-input" type="text" placeholder="+00 00000-00000" />
                     </div>
                     <div className="d-flex flex-column gap-1">
@@ -135,9 +152,18 @@ export default function ContactSection() {
                     <label className="contact-label">Mensagem</label>
                     <textarea name="message" className="contact-input contact-textarea" placeholder="O que gostaria de me dizer?" />
                 </div>
-                <button type="submit" className="btn btn-dark" style={{ alignSelf: 'flex-start', marginTop: 4 }}>
-                    Enviar ↗
+                <button type="submit"
+                    className={clsx(
+                        "btn btn-dark",
+                        'd-flex gap-2'
+                    )}
+                    style={{ alignSelf: 'flex-start', marginTop: 4, alignItems: 'center' }}
+                >
+                    {isLoading && <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>}
+                    {isLoading ? 'Enviando...' : 'Enviar ↗'}
                 </button>
+
+
             </form>
 
         </section>

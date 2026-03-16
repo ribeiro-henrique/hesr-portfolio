@@ -2,7 +2,7 @@ export default function AboutSection() {
 
     const HIGHLIGHTS = [
         { icon: '<>', title: 'Expertise em Desenvolvimento FullStack', desc: 'Proficiência na criação de aplicações end-to-end, contemplanto todas as etapas do desenvolvimento de software.' },
-        { icon: '◎', title: 'Expertise em Solução de Problemas', desc: 'Acostumado com ritmo acelerado, prazos e foco em solução.' },
+        { icon: '◎', title: 'Expertise em Solução de Problemas', desc: 'Atuação em ambientes dinâmicos e de ritmo acelerado, com capacidade de analisar problemas, desenvolver soluções práticas e entregar resultados eficientes dentro de prazos exigentes.' },
     ]
 
     const EXPERIENCE = [
@@ -16,7 +16,7 @@ export default function AboutSection() {
             role: 'Desenvolvedor autônomo',
             company: 'São Paulo',
             period: 'Dez, 2025 - Atualmente',
-            desc: 'Atuação em conjunto com uma equipe diversa, realizando diversos projetos para clientes reais, especializada em SAAS.',
+            desc: 'Atuação em colaboração com uma equipe multidisciplinar no desenvolvimento de projetos para clientes reais, com foco na criação e manutenção de soluções SaaS, contribuindo para a implementação de funcionalidades, resolução de problemas e entrega de produtos escaláveis.',
         },
         {
             role: 'Estudante de programação',
