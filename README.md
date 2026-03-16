@@ -1,75 +1,174 @@
-# React + TypeScript + Vite
+# 💼 Dev Portfolio - React + Vite + Bootstrap
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portfólio desenvolvido com **React + Vite**, utilizando
+**Bootstrap 5** para layout responsivo e integração com **n8n** para
+automação de envio de mensagens do formulário de contato.
 
-Currently, two official plugins are available:
+O projeto apresenta informações profissionais, projetos e um formulário
+de contato funcional que envia dados para um **webhook do n8n**,
+responsável por persistir os dados em uma **planilha do Google Sheets**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+------------------------------------------------------------------------
 
-## React Compiler
+# 🚀 Tecnologias Utilizadas
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Frontend
 
-Note: This will impact Vite dev & build performances.
+-   React 19
+-   Vite
+-   TypeScript
+-   Bootstrap 5
 
-## Expanding the ESLint configuration
+## Automação / Backend
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-   n8n (Webhook Automation)
+-   Google Sheets API
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+------------------------------------------------------------------------
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# 🏗️ Estrutura da Aplicação
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+    src
+     ├── components
+     │   ├── Hero
+     │   ├── About
+     │   ├── Projects
+     │   └── Contact
+     │
+     ├── styles
+     │
+     ├── App.tsx
+     └── main.tsx
+
+### Componentes principais
+
+**Hero**\
+Apresentação inicial do portfólio.
+
+**About**\
+Seção com informações profissionais e habilidades.
+
+**Projects**\
+Apresentação de projetos desenvolvidos.
+
+**Contact**\
+Formulário de contato integrado com automação via webhook.
+
+------------------------------------------------------------------------
+
+# 📬 Fluxo do Formulário de Contato
+
+<img width="1316" height="540" alt="image" src="https://github.com/user-attachments/assets/bc58894d-670d-4d4d-bfc4-49ffb71db2a0" />
+
+
+O formulário envia dados para um **webhook do n8n**, que processa e
+salva os dados.
+
+### Campos enviados
+
+-   Nome
+-   Email
+-   Telefone
+-   Mensagem
+
+------------------------------------------------------------------------
+
+# 🔄 Arquitetura da Automação (n8n)
+
+Fluxo configurado no **n8n**:
+
+    Frontend (React)
+          │
+          ▼
+    Webhook (POST)
+          │
+          ▼
+    Format Data
+          │
+          ▼
+    Google Sheets (Append Row)
+          │
+          ▼
+    Response → Frontend
+
+### Etapas do fluxo
+
+#### 1️⃣ Webhook Contact
+
+Recebe a requisição `POST` enviada pelo formulário.
+
+Endpoint:
+
+    /webhook/portfolio-contact
+
+------------------------------------------------------------------------
+
+#### 2️⃣ Format Data
+
+Normaliza os dados recebidos e adiciona timestamp.
+
+Campos formatados:
+
+    name
+    email
+    phone
+    message
+    created_at
+
+------------------------------------------------------------------------
+
+#### 3️⃣ Save Contact
+
+<img width="1123" height="326" alt="image" src="https://github.com/user-attachments/assets/3de37ff8-3e93-47e3-be32-23f39faf7a25" />
+
+
+Insere uma nova linha na planilha **Google Sheets**.
+
+Planilha utilizada:
+
+    Contatos - Portfólio
+
+Campos persistidos:
+
+| name \| email \| phone \| message \| created_at \|
+
+------------------------------------------------------------------------
+
+#### 4️⃣ Respond to Frontend
+
+Retorna uma resposta JSON para o frontend.
+
+``` json
+{
+  "status": "success",
+  "message": "Contato recebido"
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+------------------------------------------------------------------------
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# 💬 Feedback ao Usuário
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Após o envio do formulário:
+
+-   Em caso de sucesso → **SweetAlert2** exibe confirmação
+-   Em caso de erro → alerta de falha no envio
+
+------------------------------------------------------------------------
+
+# 🧪 Scripts Disponíveis
+
+## Rodar ambiente de desenvolvimento
+
+``` bash
+npm run dev
 ```
+
+------------------------------------------------------------------------
+
+# 👨‍💻 Autor
+
+**Henrique Ribeiro**
+
+Desenvolvedor focado em soluções web, automação e construção de produtos
+digitais.
