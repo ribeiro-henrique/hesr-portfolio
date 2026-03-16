@@ -27,7 +27,7 @@ export default function AboutSection() {
     ]
 
     return (
-        <section className="position-relative z-1 py-3 px-2 about-section" id="about">
+        <section className="position-relative z-1 py-3 px-2 about-section" id="sobre">
 
             <div className="text-center mb-5">
                 <h2 className="about-title">Me conheça melhor</h2>
