@@ -84,7 +84,7 @@ export default function ProjectsSection() {
     const filtered = activeFilter === 'Todos' ? PROJECTS
         : PROJECTS.filter(p => p.category === activeFilter)
     return (
-        <section className="d-flex flex-column position-relative z-1 projects-section" id="projects">
+        <section className="d-flex flex-column position-relative z-1 projects-section" id="projetos">
 
             {openModal && (
                 <VideoModal
